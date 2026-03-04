@@ -1,0 +1,163 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Rajdhani", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Orbitron", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-primary-black: #0a0a0a;
+  --color-carbon-dark: #121212;
+  --color-carbon-medium: #1a1a1a;
+  --color-carbon-light: #2a2a2a;
+  --color-metal-dark: #3a3a3a;
+  --color-metal-light: #4a4a4a;
+  --color-accent-red: #ff3333;
+  --color-accent-blue: #00a8ff;
+  --color-accent-green: #00ff88;
+  --color-accent-purple: #9945ff;
+  --color-accent-cyan: #00ffff;
+  --color-accent-amber: #f59e0b;
+  --color-accent-rose: #f43f5e;
+
+  --color-accent: var(--accent);
+  --accent: var(--color-accent-purple);
+  --accent-glow: rgba(153, 69, 255, 0.5);
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #b0b0b0;
+  --color-text-dim: #808080;
+}
+
+[data-accent="blue"] { --accent: #00a8ff; --accent-glow: rgba(0, 168, 255, 0.5); }
+[data-accent="green"] { --accent: #00ff88; --accent-glow: rgba(0, 255, 136, 0.5); }
+[data-accent="red"] { --accent: #ff3333; --accent-glow: rgba(255, 51, 51, 0.5); }
+[data-accent="amber"] { --accent: #f59e0b; --accent-glow: rgba(245, 158, 11, 0.5); }
+[data-accent="rose"] { --accent: #f43f5e; --accent-glow: rgba(244, 63, 94, 0.5); }
+[data-accent="cyan"] { --accent: #00ffff; --accent-glow: rgba(0, 255, 255, 0.5); }
+
+@layer base {
+  * {
+    @apply m-0 p-0 box-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+  @apply bg-slate-100 dark:bg-primary-black text-text-primary font-sans overflow-x-hidden relative;
+  }
+
+  /* Carbon Fiber Background Pattern */
+  body::before {
+    content: '';
+    @apply fixed inset-0 z-[-2];
+    background:
+      repeating-linear-gradient(0deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 255, 255, 0.03) 2px,
+        rgba(255, 255, 255, 0.03) 4px),
+      repeating-linear-gradient(90deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 255, 255, 0.03) 2px,
+        rgba(255, 255, 255, 0.03) 4px),
+      linear-gradient(135deg,
+        #0a0a0a 0%,
+        #121212 25%,
+        #1a1a1a 50%,
+        #121212 75%,
+        #0a0a0a 100%);
+  }
+
+  /* Animated Grid Overlay */
+  body::after {
+    content: '';
+    @apply fixed inset-0 z-[-1] opacity-50;
+    background-image:
+      linear-gradient(rgba(255, 51, 51, 0.05) 2px, transparent 2px),
+      linear-gradient(90deg, rgba(255, 51, 51, 0.05) 2px, transparent 2px);
+    background-size: 150px 150px;
+    animation: gridMove 20s linear infinite;
+  }
+}
+
+@keyframes gridMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(150px, 150px); }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-carbon-medium/50 backdrop-blur-xl border border-metal-dark;
+  }
+
+  .text-glow-accent {
+    text-shadow: 0 0 20px var(--accent-glow);
+  }
+
+  .prism-shine {
+    animation: prismShine 3s ease-in-out infinite;
+  }
+
+  .prism-sweep::before {
+    content: '';
+    @apply absolute inset-0;
+    background: linear-gradient(90deg,
+      transparent,
+      #ff3333 20%,
+      #00a8ff 40%,
+      #00ff88 60%,
+      #9945ff 80%,
+      transparent);
+    animation: prismSweep 4s ease-in-out infinite;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .shadow-glow {
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+
+  .animate-scanline {
+    animation: scanline 3s linear infinite;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-gradient-flow {
+    animation: gradientFlow 5s ease infinite;
+  }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(500px); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes prismShine {
+  0%, 100% { filter: brightness(1) hue-rotate(0deg); transform: rotate(45deg) scale(1); }
+  50% { filter: brightness(1.5) hue-rotate(10deg); transform: rotate(45deg) scale(1.1); }
+}
+
+@keyframes prismSweep {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
